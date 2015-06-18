@@ -1,0 +1,42 @@
+{
+  "name": "hubot-ship",
+  "version": "0.1.0",
+  "author": "Jimmy Morales <jimmy@centralservices.io>",
+  "description": "A Slack adapter for hubot",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://opensource.org/licenses/mit-license.php"
+    }
+  ],
+  "engines": {
+    "node": "0.10.x"
+  },
+  "peerDependencies": {
+    "hubot": "2.x"
+  },
+  "devDependencies": {
+    "coffee-script": "~1.7.1",
+    "hubot": "~2.11"
+  },
+  "main": "./index",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/societypro/hubot-ship"
+  },
+  "keywords": [
+    "hubot",
+    "adapter",
+    "ship"
+  ],
+  "bugs": {
+    "url": "https://github.com/societypro/hubot-ship/issues"
+  },
+  "homepage": "https://github.com/societypro/hubot-ship",
+  "dependencies": {
+    "vertx-eventbus-client": "0.0.4"
+  }
+}
