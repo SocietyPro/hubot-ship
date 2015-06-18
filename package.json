@@ -2,7 +2,7 @@
   "name": "hubot-ship",
   "version": "0.1.0",
   "author": "Jimmy Morales <jimmy@centralservices.io>",
-  "description": "A Slack adapter for hubot",
+  "description": "A Ship adapter for hubot",
   "licenses": [
     {
       "type": "MIT",
@@ -11,9 +11,6 @@
   ],
   "engines": {
     "node": "0.10.x"
-  },
-  "peerDependencies": {
-    "hubot": "2.x"
   },
   "devDependencies": {
     "coffee-script": "~1.7.1",
