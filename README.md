@@ -16,7 +16,7 @@ This is a [Hubot](http://hubot.github.com/) adapter to use with [Ship](https://s
 
 #### Testing your bot locally
 
-- `VERTX_SERVER_ADDRESS=http://localhost:3333/eventbus ./bin/hubot --adapter slack`
+- `VERTX_SERVER_ADDRESS=http://localhost:3333/eventbus ./bin/hubot --adapter ship`
 
 ## Configuration
 
