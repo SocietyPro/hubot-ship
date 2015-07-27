@@ -11,6 +11,7 @@ class Ship extends Adapter
     @robot.logger.info "Constructor"
 
   send: (envelope, strings...) ->
+    self = this
     @robot.logger.info "Send"
     for msg in strings
       hubotObj =
@@ -36,9 +37,20 @@ class Ship extends Adapter
             @robot.logger.info "No Channel specified in response"
             continue
 
-      @eventbus.send 'webhook', JSON.stringify hubotObj
+      ebObj =
+        requesterId: 'bot'
+        requesterOrigin: 'hubot'
+        requesterWebhook: webhook
+        channelId: envelope.room
+        text: msg
+
+      #@eventbus.send 'webhook', JSON.stringify hubotObj
+      @eventbus.send 'message.post', ebObj, (reply) ->
+        if !reply.ok
+          self.robot.logger.error 'message.post failed:', reply
 
   reply: (envelope, strings...) ->
+    self = this
     @robot.logger.info "Reply"
     for msg in strings
       hubotObj =
@@ -63,7 +75,17 @@ class Ship extends Adapter
           else
             @robot.logger.info "No Channel specified in response"
 
-      @eventbus.send 'webhook', JSON.stringify hubotObj
+      ebObj =
+        requesterId: 'bot'
+        requesterOrigin: 'hubot'
+        requesterWebhook: webhook
+        channelId: envelope.room
+        text: msg
+
+      #@eventbus.send 'webhook', JSON.stringify hubotObj
+      @eventbus.send 'message.post', ebObj, (reply) ->
+        if !reply.ok
+          self.robot.logger.error 'message.post failed:', reply
 
   run: ->
     self = this
@@ -72,8 +94,10 @@ class Ship extends Adapter
     @eventbus.onopen = ->
       self.emit "connected"
       self.robot.logger.info "Connected to event bus"
-      self.eventbus.registerHandler 'message', (msg) ->
-        message = JSON.parse msg
+      self.eventbus.registerHandler 'message.wasPosted', (msg) ->
+        message = JSON.parse msg.message
+        if message.origin == 'hubot'
+          return
         user = new User message.authorId, name: message.authorName
         user.room = message.channelId
         messageToHubot = new TextMessage user, message.text, message._id, message
