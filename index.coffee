@@ -40,7 +40,7 @@ class Ship extends Adapter
         requesterId: 'bot'
         requesterOrigin: 'hubot'
         requesterWebhook: webhook
-        channelId: envelope.channelId
+        channelId: hubotObj.channelId
         receiverId: hubotObj.receiverId
         text: msg
 
@@ -79,7 +79,7 @@ class Ship extends Adapter
         requesterId: 'bot'
         requesterOrigin: 'hubot'
         requesterWebhook: webhook
-        channelId: envelope.channelId
+        channelId: hubotObj.channelId
         receiverId: hubotObj.receiverId
         text: msg
 
