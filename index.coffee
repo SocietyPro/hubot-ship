@@ -26,13 +26,12 @@ class Ship extends Adapter
 
       if envelope.room
         hubotObj.channelId = envelope.room
-
-      if not hubotObj.channelId and not hubotObj.receiverId
+      else
         if envelope.message.channelId
           hubotObj.channelId = envelope.message.channelId
         else
-          if envelope.message.receiverId
-            hubotObj = envelope.message.receiverId
+          if envelope.message.receiverId === 'hubot'
+            hubotObj.receiverId = envelope.message.authorId
           else
             @robot.logger.info "No Channel specified in response"
             continue
@@ -41,7 +40,8 @@ class Ship extends Adapter
         requesterId: 'bot'
         requesterOrigin: 'hubot'
         requesterWebhook: webhook
-        channelId: envelope.room
+        channelId: envelope.channelId
+        receiverId: hubotObj.receiverId
         text: msg
 
       #@eventbus.send 'webhook', JSON.stringify hubotObj
@@ -65,21 +65,22 @@ class Ship extends Adapter
 
       if envelope.room
         hubotObj.channelId = envelope.room
-
-      if not hubotObj.channelId and not hubotObj.receiverId
+      else
         if envelope.message.channelId
           hubotObj.channelId = envelope.message.channelId
         else
-          if envelope.message.receiverId
-            hubotObj = envelope.message.receiverId
+          if envelope.message.receiverId === 'hubot'
+            hubotObj.receiverId = envelope.message.authorId
           else
             @robot.logger.info "No Channel specified in response"
+            continue
 
       ebObj =
         requesterId: 'bot'
         requesterOrigin: 'hubot'
         requesterWebhook: webhook
-        channelId: envelope.room
+        channelId: envelope.channelId
+        receiverId: hubotObj.receiverId
         text: msg
 
       #@eventbus.send 'webhook', JSON.stringify hubotObj
