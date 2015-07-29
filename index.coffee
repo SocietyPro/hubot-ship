@@ -97,7 +97,7 @@ class Ship extends Adapter
       self.robot.logger.info "Connected to event bus"
       self.eventbus.registerHandler 'message.wasPosted', (msg) ->
         message = msg.message
-        if message.origin == 'hubot'
+        if message.authorId == 'hubot'
           return
         user = new User message.authorId, name: message.authorName
         user.room = message.channelId
