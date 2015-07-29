@@ -95,10 +95,15 @@ class Ship extends Adapter
     @eventbus.onopen = ->
       self.emit "connected"
       self.robot.logger.info "Connected to event bus"
+      re = new RegExp('^'+self.robot.name+' ', 'i')
       self.eventbus.registerHandler 'message.wasPosted', (msg) ->
         message = msg.message
         if message.authorId == 'hubot'
           return
+        if !message.channelId and message.receiverId == 'hubot'
+          if !re.test(message.text)
+            message.text = self.robot.name + ' ' + message.text
+
         user = new User message.authorId, name: message.authorName
         user.room = message.channelId
         messageToHubot = new TextMessage user, message.text, message._id, message
