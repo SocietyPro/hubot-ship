@@ -30,7 +30,7 @@ class Ship extends Adapter
         if envelope.message.channelId
           hubotObj.channelId = envelope.message.channelId
         else
-          if envelope.message.receiverId === 'hubot'
+          if envelope.message.receiverId == 'hubot'
             hubotObj.receiverId = envelope.message.authorId
           else
             @robot.logger.info "No Channel specified in response"
@@ -69,7 +69,7 @@ class Ship extends Adapter
         if envelope.message.channelId
           hubotObj.channelId = envelope.message.channelId
         else
-          if envelope.message.receiverId === 'hubot'
+          if envelope.message.receiverId == 'hubot'
             hubotObj.receiverId = envelope.message.authorId
           else
             @robot.logger.info "No Channel specified in response"
