@@ -31,15 +31,15 @@ class Ship extends Adapter
           hubotObj.channelId = envelope.message.channelId
         else
           if envelope.message.receiverId == 'hubot'
-            hubotObj.receiverId = envelope.message.authorId
+            hubotObj.receiverId = envelope.user.id
           else
             @robot.logger.info "No Channel specified in response"
             continue
 
       ebObj =
-        requesterId: 'bot'
-        requesterOrigin: 'hubot'
-        requesterWebhook: webhook
+        requesterId: 'hubot'
+        #requesterOrigin: 'hubot'
+        #requesterWebhook: webhook
         channelId: hubotObj.channelId
         receiverId: hubotObj.receiverId
         text: msg
@@ -70,15 +70,15 @@ class Ship extends Adapter
           hubotObj.channelId = envelope.message.channelId
         else
           if envelope.message.receiverId == 'hubot'
-            hubotObj.receiverId = envelope.message.authorId
+            hubotObj.receiverId = envelope.user.id
           else
             @robot.logger.info "No Channel specified in response"
             continue
 
       ebObj =
-        requesterId: 'bot'
-        requesterOrigin: 'hubot'
-        requesterWebhook: webhook
+        requesterId: 'hubot'
+        #requesterOrigin: 'hubot'
+        #requesterWebhook: webhook
         channelId: hubotObj.channelId
         receiverId: hubotObj.receiverId
         text: msg
@@ -96,7 +96,7 @@ class Ship extends Adapter
       self.emit "connected"
       self.robot.logger.info "Connected to event bus"
       self.eventbus.registerHandler 'message.wasPosted', (msg) ->
-        message = JSON.parse msg.message
+        message = msg.message
         if message.origin == 'hubot'
           return
         user = new User message.authorId, name: message.authorName
